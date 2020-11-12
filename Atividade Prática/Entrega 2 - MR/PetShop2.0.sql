@@ -27,7 +27,7 @@ create table Empregado(
     HoraDTrabalho float,
     Qtde_Funcoes integer,
     Data_Inicio date,
-    foreign key (CPF_E) references Funcionario(CPF_F)
+    foreign key (CPF_E) references Funcionario(CPF_F) ON DELETE CASCADE
 );
 
 create table Funcao(
@@ -56,8 +56,8 @@ create table Motorista(
     CNH char(11),
     Telefone char(12), /* (44 1234567) ou (44 123456789) */
     Placa_veiculo char(7) NOT NULL,
-    foreign key (CPF_M) references Funcionario(CPF_F),
-    foreign key (Placa_veiculo) references Veiculo(Placa)
+    foreign key (CPF_M) references Funcionario(CPF_F) ON DELETE CASCADE, 
+    foreign key (Placa_veiculo) references Veiculo(Placa) 
 );
 
 create table Servico(
