@@ -85,7 +85,7 @@ from Produto;
 
 -- Inserção dos Funcionário
 
-Insert Into Funcionario(CPF_F, Nome, Salario_H) Values
+Insert Into Funcionario(CPF_F, Nome, Salario) Values
 (44644884947,	'Nayra Lara Dinis',	        1499.00),
 (73505195596,	'Filipe Outeiro',	        1399.00),
 (32244067817,	'Liam Padilha Feira',	    1399.00),
@@ -107,24 +107,24 @@ Insert Into Funcionario(CPF_F, Nome, Salario_H) Values
 (94841851068,	'Emily Aldeia Bilhalva',	1399.00),
 (73642311979,	'Tito Baptista Damasceno',	1399.00);
 
-select CPF_F, Nome, Salario_H
+select CPF_F, Nome, Salario
 from Funcionario;
 
 -- Inserção dos Empregado
 
-Insert Into Empregado(HoraDTrabalho, Qtde_Funcoes, Data_Inicio, CPF_E) Values
-(8,	2,	'2018-09-22',	44644884947),
-(8,	1,	'2019-03-13',	73505195596),
-(8,	1,	'2019-04-25',	32244067817),
-(8,	2,	'2015-01-06',	46891022619),
-(4,	1,	'2019-11-10',	44717464363),
-(4,	1,	'2019-12-15',	36581883218),
-(8,	1,	'2020-01-24',	43027228040),
-(8,	1,	'2020-03-29',	83344141898),
-(4,	1,	'2020-09-11',	66026392881),
-(8,	1,	'2020-10-13',	57105930829);
+Insert Into Empregado(Dias_Trabalho, Qtde_Funcoes, Data_Inicio, CPF_E) Values
+(22,	2,	'2018-09-22',	44644884947),
+(22,	1,	'2019-03-13',	73505195596),
+(22,	1,	'2019-04-25',	32244067817),
+(22,	2,	'2015-01-06',	46891022619),
+(22,	1,	'2019-11-10',	44717464363),
+(22,	1,	'2019-12-15',	36581883218),
+(22,	1,	'2020-01-24',	43027228040),
+(22,	1,	'2020-03-29',	83344141898),
+(22,	1,	'2020-09-11',	66026392881),
+(22,	1,	'2020-10-13',	57105930829);
 
-select HoraDTrabalho, Qtde_Funcoes, Data_Inicio, CPF_E
+select Dias_Trabalho, Qtde_Funcoes, Data_Inicio, CPF_E
 from Empregado;
 
 
