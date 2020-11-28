@@ -17,28 +17,28 @@ drop table if exists Empregado;
 drop table if exists Funcionario;
 
 Create table Funcionario(
-	CPF_F integer primary key,
+	CPF_F char(11) primary key,
     Nome varchar(128),
-    Salario_H decimal(10,2)
+    Salario decimal(10,2)
 );
 
 create table Empregado(
-	CPF_E integer primary key,
-    HoraDTrabalho float,
+	CPF_E char(11) primary key,
+    Dias_Trabalho integer,
     Qtde_Funcoes integer,
     Data_Inicio date,
     foreign key (CPF_E) references Funcionario(CPF_F) ON DELETE CASCADE
 );
 
 create table Funcao(
-	Funct_ID integer primary key,
+	Funct_ID char(6) primary key,
     Nome varchar(128),
     Descricao varchar(512)
 );
 
 create table Empregado_tem_Funcao(
-	CPF_E integer,
-    Funct_ID integer,
+	CPF_E char(11),
+    Funct_ID char(6),
     primary key(CPF_E, Funct_ID),
     foreign key(CPF_E) references Empregado(CPF_E),
     foreign key(Funct_ID) references Funcao(Funct_ID)
@@ -51,7 +51,7 @@ create table Veiculo(
 );
 
 create table Motorista(
-	CPF_M integer primary key,
+	CPF_M char(11) primary key,
     Custo_Entrega decimal(10,2),
     CNH char(11),
     Telefone char(12), /* (44 1234567) ou (44 123456789) */
@@ -61,53 +61,53 @@ create table Motorista(
 );
 
 create table Servico(
-	Servico_ID integer primary key,
+	Servico_ID char(6) primary key,
     Nome_Servico varchar(256),
     Custo decimal(10,2),
     Tempo_Servico float
 );
 
 create table Produto(
-	Produto_ID integer primary key,
+	Produto_ID char(6) primary key,
     Nome varchar(256),
     Marca varchar(126),
     Descricao varchar(256)
 );
 
 create table Servico_Usa_Produto(
-	Servico_ID integer,
-    Produto_ID integer,
+	Servico_ID char(6),
+    Produto_ID char(6),
     primary key(Servico_ID, Produto_ID),
     foreign key(Servico_ID) references Servico(Servico_ID),
     foreign key(Produto_ID) references Produto(Produto_ID)
 );
 
 create table Empregado_Faz_Servico(
-	Servico_ID integer,
-    CPF_E integer,
+	Servico_ID char(6),
+    CPF_E char(11),
     primary key(Servico_ID, CPF_E),
     foreign key(Servico_ID) references Servico(Servico_ID),
     foreign key(CPF_E) references Empregado(CPF_E)
 );
 
 create table Raca(
-	Race_ID integer primary key,
+	Race_ID char(6) primary key,
     Nome varchar(128),
-    Especie varchar(128),
-    Porte varchar(64) /*Grande Pequeno Medio*/
+    Porte varchar(64), /*Grande Pequeno Medio*/
+    Especie varchar(128)
 );
 
 create table cliente(
-    CPF_C integer primary key,
+    CPF_C char(11) primary key,
     Nome varchar(128),
 	Endereco varchar(128),
     Telefone char(12)
 );
 
 create table Animal(
-	Animal_ID integer primary key,
-    CPF_C integer NOT NULL,
-    Race_ID integer,
+	Animal_ID char(6) primary key,
+    CPF_C char(11) NOT NULL,
+    Race_ID char(6),
     Nome varchar(128),
     obs varchar(256),
     foreign key(CPF_C) references Cliente(CPF_C),
@@ -115,16 +115,16 @@ create table Animal(
 );
 
 create table Animal_tem_Servico(
-	Servico_ID integer,
-    Animal_ID integer,
+	Servico_ID char(6),
+    Animal_ID char(6),
     primary key(Servico_ID, Animal_ID),
     foreign key(Servico_ID) references Servico(Servico_ID),
     foreign key(Animal_ID) references Animal(Animal_ID)
 );
 
 create table Motorista_Entrega_Animal(
-	CPF_M integer,
-    Animal_ID integer,
+	CPF_M char(11),
+    Animal_ID char(6),
     primary key(CPF_M, Animal_ID),
     foreign key(CPF_M) references Motorista(CPF_M),
     foreign key(Animal_ID) references Animal(Animal_ID)
