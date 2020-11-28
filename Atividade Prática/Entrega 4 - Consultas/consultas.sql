@@ -85,3 +85,25 @@ where	P.Produto_ID in	(select	SuP.Produto_ID
 											)
                                                     	)
                         );
+
+/*=======================================[9]======================================== 
+Liste a soma do salario dos empregados que se juntaram na Loja antes do ano de 2020
+===================================================================================*/
+select	sum(F.salario)
+from	Funcionario F
+where	F.CPF_F	in	(Select	E.CPF_E
+			from	Empregado E
+			where	year(E.Data_Inicio) < '2020-01-01');
+                    
+/*=======================================[10]======================================== 
+		Liste o nomes dos clientes que tem um animal da especie 'Reptil'
+===================================================================================*/
+select	C.nome
+from	Cliente C
+where	C.CPF_C	in	(select	A.CPF_C
+			from	Animal A
+                    	where	A.Race_ID	in	(select	R.Race_ID
+							from	Raca R
+                                            		where	R.especie = 'Reptil'
+                                            		)
+			);
