@@ -30,24 +30,25 @@ having 	R.Especie = 'Canino';
 select	A.nome
 from	Animal A
 where	A.CPF_C	not in	(Select	C.CPF_C
-			from	Cliente C
-			where	C.CPF_C like '1%');
+						from	Cliente C
+						where	C.CPF_C like '1%');
 
 /*=======================================[5]========================================
-  Liste todos os serviços prestados para os animais da raça 'Felino' registrados
+				Liste todos os serviços prestados para os animais
+					que não são da raça 'Felino' registrados
 ===================================================================================*/
 select	S.Nome_Servico
 from 	Servico S
 where 	S.Servico_ID in (Select	AtS.Servico_ID
-			from	Animal_tem_Servico AtS
+						from	Animal_tem_Servico AtS
                         where	AtS.Animal_ID   in	(select	A.Animal_ID
-							from	Animal A
-                                                    	where	A.Race_ID in 	(Select R.Race_ID
-										from	Raca R
-										where	R.especie = 'Felino'
-										)
-							)
-			);
+													from	Animal A
+                                                    where	A.Race_ID not in 	(Select R.Race_ID
+																				from	Raca R
+																				where	R.especie = 'Felino'
+																				)
+													)
+						);
                         
 /*=======================================[6]========================================
 			 Liste as funções que o Empregado não faz,
@@ -56,8 +57,8 @@ where 	S.Servico_ID in (Select	AtS.Servico_ID
 select 	F.nome
 from 	Funcao F
 where 	F.Funct_ID not in 	(select	EtF.Funct_ID
-				from	Empregado_tem_Funcao EtF
-				where	EtF.CPF_E like '4%'); 
+							from	Empregado_tem_Funcao EtF
+							where	EtF.CPF_E like '4%'); 
 
 /*=======================================[7]======================================== 
   Liste a soma dos Gastos médios mensais(Manutenção) dos veiculos no qual não são
@@ -66,24 +67,23 @@ where 	F.Funct_ID not in 	(select	EtF.Funct_ID
 select	sum(V.Manutencao) as Gasto_RS
 from	Veiculo V	
 where	V.Placa	not in	(select	M.Placa_veiculo
-			from	Motorista M
-			where	M.Custo_Entrega is not NULL);
+						from	Motorista M
+						where	M.Custo_Entrega is not NULL);
 
 /*=======================================[8]======================================== 
-			Liste o nome dos produtos que podem ser utilizados no
+			Liste o nome dos produtos que não foram utilizados no
 				serviço feito para o animal com o nome de 'Mia'
 ===================================================================================*/
 select 	P.nome
 from	Produto P
 where	P.Produto_ID in	(select	SuP.Produto_ID
-			from	Servico_Usa_Produto SuP
-                        where	SuP.Servico_ID	in	(select	AtS.Servico_ID
-							from	Animal_tem_Servico AtS
-                                                    	where	AtS.Animal_ID in	(select	A.Animal_ID
-											from	Animal A
-                                                                                	where	A.nome = 'Mia'
-											)
-                                                    	)
+						from	Servico_Usa_Produto SuP
+                        where	SuP.Servico_ID in	(select	AtS.Servico_ID
+													from	Animal_tem_Servico AtS
+                                                    where	AtS.Animal_ID not in	(select	A.Animal_ID
+																					from	Animal A
+																					where	A.nome = 'Mia')
+                                                    )
                         );
 
 /*=======================================[9]======================================== 
@@ -92,18 +92,17 @@ Liste a soma do salario dos empregados que se juntaram na Loja antes do ano de 2
 select	sum(F.salario)
 from	Funcionario F
 where	F.CPF_F	in	(Select	E.CPF_E
-			from	Empregado E
-			where	year(E.Data_Inicio) < '2020-01-01');
+					from	Empregado E
+					where	year(E.Data_Inicio) < '2020-01-01');
                     
 /*=======================================[10]======================================== 
-		Liste o nomes dos clientes que tem um animal da especie 'Reptil'
+	Liste o nomes dos clientes que não tem um animal da especie 'Reptil'
 ===================================================================================*/
 select	C.nome
 from	Cliente C
 where	C.CPF_C	in	(select	A.CPF_C
-			from	Animal A
-                    	where	A.Race_ID	in	(select	R.Race_ID
-							from	Raca R
-                                            		where	R.especie = 'Reptil'
-                                            		)
-			);
+					from	Animal A
+                    where	A.Race_ID	not	in	(select	R.Race_ID
+												from	Raca R
+												where	R.especie = 'Reptil')
+					);
